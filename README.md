@@ -31,7 +31,8 @@ messages files.
 What it will do :
 
 1. Find all the `*.java` files in your `app` directory, looking for `Messages.get("...")`.
-2. Find all the files in your `app/views` directory, looking for `&{'...'` (double quotes work too, of course).
+2. Find all the files in your `app/views` directory, looking for `&{'...'` and `messages.get('...')` (double quotes work too, 
+   of course).
 3. In all your messages files (`conf/messages` + every `conf/messages.LANG` file, depending on your `application.langs` option),
    add all the previously found strings missing, with an empty translation.
 

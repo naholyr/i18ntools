@@ -57,6 +57,10 @@ def execute(**kargs):
 			i18nString = match.group(2)
 			tplI18nStrings[i18nString] = True
 			i18nStrings[i18nString] = True
+		for match in re.finditer(r"messages\.get\(([\"'])(.*?)\1", tpl):
+			i18nString = match.group(2)
+			tplI18nStrings[i18nString] = True
+			i18nStrings[i18nString] = True
 	print "~ Found %i i18n string(s) in %i view file(s)..." % (len(tplI18nStrings), len(tplFiles))
 	
 	i18nStrings = i18nStrings.keys()
