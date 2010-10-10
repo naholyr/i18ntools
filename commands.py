@@ -37,7 +37,6 @@ def execute(**kargs):
     f.close()
     for match in re.finditer(r"Messages\.get\(\"(.*?)\"", java):
       i18nString = match.group(1)
-      print i18nString
       javaI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
   print "~ Found %i i18n string(s) in %i Java file(s)..." % (len(javaI18nStrings), len(javaFiles))
