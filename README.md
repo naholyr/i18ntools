@@ -36,7 +36,7 @@ What it will do :
 3. In all your messages files (`conf/messages` + every `conf/messages.LANG` file, depending on your `application.langs` option),
    add all the previously found strings missing, with an empty translation.
 
-Whant it won't do :
+What it won't do :
 
 * It won't smartly analyze your code, detect and resolve variables, or things like that.
 * It won't auto-translate your strings :)
