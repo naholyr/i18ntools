@@ -1,6 +1,6 @@
 # I18N extraction
 # Usage : play i18n-extract
-# Goal : fill up your messages files with the i18n strings found in your code (Java + views, files 
+# Goal : fill up your messages files with the i18n strings found in your code (Java + views, files
 # and directories starting with a dot are excluded)
 
 import sys
@@ -20,9 +20,9 @@ HELP = {
 def execute(**kargs):
   app = kargs.get("app")
   app.check()
-  
+
   i18nStrings = dict()
-  
+
   print "~ Extracting i18n strings from Java files [Messages.get(\"...\")] ..."
   javaFiles = []
   for root, subFolders, files in os.walk(os.path.join(app.path, "app")):
@@ -37,10 +37,11 @@ def execute(**kargs):
     f.close()
     for match in re.finditer(r"Messages\.get\(\"(.*?)\"", java):
       i18nString = match.group(1)
+      #print i18nString
       javaI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
   print "~ Found %i i18n string(s) in %i Java file(s)..." % (len(javaI18nStrings), len(javaFiles))
-  
+
   print "~ Extracting i18n strings from templates [&{'...'...}] ..."
   tplFiles = []
   for root, subFolders, files in os.walk(os.path.join(os.path.join(app.path, "app"), "views")):
@@ -62,10 +63,10 @@ def execute(**kargs):
       tplI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
   print "~ Found %i i18n string(s) in %i view file(s)..." % (len(tplI18nStrings), len(tplFiles))
-  
+
   i18nStrings = i18nStrings.keys()
   print "~ Found %i i18n string(s) in your application, now let's fill up your messages files !" % len(i18nStrings)
-  
+
   langs = app.readConf("application.langs").split(",")
   messagesFiles = [os.path.join("conf", "messages")]
   for lang in langs:
@@ -74,6 +75,7 @@ def execute(**kargs):
     strings = readMessagesFile(messagesFile)
     stringsToAdd = []
     for string in i18nStrings:
+      string = string.replace(" ", "\\ ")
       if string not in strings:
         stringsToAdd.append(string)
     appendToMessagesFile(messagesFile, stringsToAdd)
