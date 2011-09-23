@@ -111,7 +111,7 @@ def appendToMessagesFile(path, strings):
   if len(strings) > 0:
     text = "\n\n# Next %i lines were automatically added by i18n-extract on %s\n" % (len(strings), time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     for string in strings:
-      text += "%s = %s\n" % (string, "")
+      text += "%s = %s %s\n" % (string, "TODO", string.replace("\\ ", " "))
     f = open(path, "a")
     f.write(text)
     f.close()
