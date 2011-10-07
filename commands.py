@@ -35,7 +35,7 @@ def execute(**kargs):
     f = open(file)
     java = f.read()
     f.close()
-    for match in re.finditer(r"Messages\.get\(\"(.*?)\"", java):
+    for match in re.finditer(r"Messages\.get\(\s*\"(.*?)\s*\"", java):
       i18nString = match.group(1)
       #print i18nString
       javaI18nStrings[i18nString] = True
@@ -54,11 +54,11 @@ def execute(**kargs):
     f = open(file)
     tpl = f.read()
     f.close()
-    for match in re.finditer(r"&\{([\"'])(.*?)\1", tpl):
+    for match in re.finditer(r"&\{\s*([\"'])(.*?)\s*\1", tpl):
       i18nString = match.group(2)
       tplI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
-    for match in re.finditer(r"messages\.get\(([\"'])(.*?)\1", tpl):
+    for match in re.finditer(r"messages\.get\(\s*([\"'])(.*?)\s*\1", tpl):
       i18nString = match.group(2)
       tplI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
@@ -75,7 +75,7 @@ def execute(**kargs):
     strings = readMessagesFile(messagesFile)
     stringsToAdd = []
     for string in i18nStrings:
-      string = string.replace(" ", "\\ ")
+      string = string.replace(" ", "\\ ").replace(":", "\\:").replace("=", "\\=")
       if string not in strings:
         stringsToAdd.append(string)
     appendToMessagesFile(messagesFile, stringsToAdd)
@@ -111,7 +111,7 @@ def appendToMessagesFile(path, strings):
   if len(strings) > 0:
     text = "\n\n# Next %i lines were automatically added by i18n-extract on %s\n" % (len(strings), time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     for string in strings:
-      text += "%s = %s %s\n" % (string, "TODO", string.replace("\\ ", " "))
+      text += "%s = %s %s\n" % (string, "TODO", string.replace("\\ ", " ").replace("\\:", ":").replace("\\=", "="))
     f = open(path, "a")
     f.write(text)
     f.close()
