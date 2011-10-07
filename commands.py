@@ -35,7 +35,7 @@ def execute(**kargs):
     f = open(file)
     java = f.read()
     f.close()
-    for match in re.finditer(r"Messages\.get\(\"(.*?)\"", java):
+    for match in re.finditer(r"Messages\.get\(\s*\"(.*?)\s*\"", java):
       i18nString = match.group(1)
       #print i18nString
       javaI18nStrings[i18nString] = True
@@ -54,11 +54,11 @@ def execute(**kargs):
     f = open(file)
     tpl = f.read()
     f.close()
-    for match in re.finditer(r"&\{([\"'])(.*?)\1", tpl):
+    for match in re.finditer(r"&\{\s*([\"'])(.*?)\s*\1", tpl):
       i18nString = match.group(2)
       tplI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
-    for match in re.finditer(r"messages\.get\(([\"'])(.*?)\1", tpl):
+    for match in re.finditer(r"messages\.get\(\s*([\"'])(.*?)\s*\1", tpl):
       i18nString = match.group(2)
       tplI18nStrings[i18nString] = True
       i18nStrings[i18nString] = True
